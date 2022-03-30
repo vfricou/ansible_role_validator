@@ -1,0 +1,7 @@
+---
+support:
+  Debian: ['10', '11']
+  Ubuntu: ['18', '20', '21']
+  RedHat: ['8']
+  Rocky: ['8']
+  AlmaLinux: ['8']

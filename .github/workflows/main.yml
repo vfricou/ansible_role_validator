@@ -1,6 +1,28 @@
 ---
 name: CI Status
-on: [create, push, pull_request, release]
+on:
+  create:
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .editorconfig
+      - .gitignore
+      - meta/*
+  push:
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .editorconfig
+      - .gitignore
+      - meta/*
+  pull_request:
+    paths-ignore:
+      - README.md
+      - LICENSE
+      - .editorconfig
+      - .gitignore
+      - meta/*
+  release:
 
 jobs:
   molecule:

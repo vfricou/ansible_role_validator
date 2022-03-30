@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include validator"
+      include_role:
+        name: "vfricou.validator"

@@ -28,7 +28,7 @@ jobs:
         with:
           requirements: "https://gist.githubusercontent.com/vfricou/456bebc73df55c1dbf5351c808debaa1/raw/d4f06a57c46e628bf64a1a095a287bbf276f9864/ansible-latest.txt"
       - name: Perform molecule full tests
-        working-directory: vfricou/ansible_role_user_password_update
+        working-directory: vfricou/ansible_role_validator
         run: molecule test --scenario-name ${{ matrix.scenario }}
         env:
           PY_COLORS: '1'

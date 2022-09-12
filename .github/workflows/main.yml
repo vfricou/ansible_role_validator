@@ -1,21 +1,7 @@
 ---
 name: CI Status
 on:
-  create:
-    paths-ignore:
-      - README.md
-      - LICENSE
-      - .editorconfig
-      - .gitignore
-      - meta/*
   push:
-    paths-ignore:
-      - README.md
-      - LICENSE
-      - .editorconfig
-      - .gitignore
-      - meta/*
-  pull_request:
     paths-ignore:
       - README.md
       - LICENSE
@@ -32,9 +18,11 @@ jobs:
       matrix:
         scenario:
           - almalinux8
+          - almalinux9
           - debian10
           - debian11
           - rocky8
+          - rocky9
           - ubuntu1804
           - ubuntu2004
           - ubuntu2104

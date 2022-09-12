@@ -1,7 +1,7 @@
 ---
 - name: "validator | populate "
   ansible.builtin.set_fact:
-    supported_os: "{{ supported_platforms|json_query('[].name') }}"
+    supported_os: "{{ supported_platforms | json_query('[].name') }}"
 
 - name: "validator | check os support"
   ansible.builtin.fail:
@@ -10,10 +10,12 @@
 
 - name: "validator | populate supported releases"
   ansible.builtin.set_fact:
-    supported_versions: "{{ (supported_platforms | selectattr('name', 'match', ansible_distribution)| list | first).versions }}"
+    supported_versions: "{{ (supported_platforms | selectattr('name', 'match',
+                          ansible_distribution) | list | first).versions }}"  # noqa line-length
 
 - name: assert
   ansible.builtin.assert:
     that:
       - ansible_distribution_version|int in supported_versions|list
-    fail_msg: "Your distribution {{ ansible_distribution }} {{ ansible_distribution_version }} ({{ ansible_distribution_release }}) is not supported"
+    fail_msg: "Your distribution {{ ansible_distribution }}
+              {{ ansible_distribution_version }} ({{ ansible_distribution_release }}) is not supported"

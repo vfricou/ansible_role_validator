@@ -1,0 +1,25 @@
+---
+dependency:
+  name: galaxy
+# Define docker as driver to perform tests with systemd container instances
+driver:
+  name: docker
+# Define multiples platforms to validate all playbook
+platforms:
+  - name: molecule_almalinux9_instance
+    image: almalinux:9
+# Perform linting steps with yamllint and ansible-lint
+lint: |
+  set -e
+  printf "##########################################\n"
+  printf "# Performing yamllint \n"
+  yamllint -c ./molecule/lint_config/config.yml .
+  printf "##########################################\n"
+  printf "# Performing ansible-lint \n"
+  ansible-lint -c ./molecule/lint_config/ansible-lint.yml .
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+scenario:
+  name: almalinux8

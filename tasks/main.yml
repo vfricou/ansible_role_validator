@@ -1,12 +1,19 @@
 ---
-- name: "Distribution validator"
-  ansible.builtin.assert:
-    that:
-      - ansible_distribution in support.keys()|list
-    fail_msg: "Your {{ ansible_distribution }} is not supported"
+- name: "validator | populate "
+  ansible.builtin.set_fact:
+    supported_os: "{{ supported_platforms|json_query('[].name') }}"
 
-- name: "Version validation"
+- name: "validator | check os support"
+  ansible.builtin.fail:
+    msg: "Your OS {{ ansible_distribution }} is not supported"
+  when: ansible_distribution not in supported_os
+
+- name: "validator | populate supported releases"
+  ansible.builtin.set_fact:
+    supported_versions: "{{ (supported_platforms | selectattr('name', 'match', ansible_distribution)| list | first).versions }}"
+
+- name: assert
   ansible.builtin.assert:
     that:
-      - ansible_distribution_major_version in support[ansible_distribution]
-    fail_msg: "Your {{ ansible_distribution }} version {{ ansible_distribution_major_version }} is not supported"
+      - ansible_distribution_version|int in supported_versions|list
+    fail_msg: "Your distribution {{ ansible_distribution }} {{ ansible_distribution_version }} ({{ ansible_distribution_release }}) is not supported"
